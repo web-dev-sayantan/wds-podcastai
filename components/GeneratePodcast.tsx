@@ -21,8 +21,8 @@ const useGeneratePodcast = ({
   const generateUploadUrlMutation = useMutation(api.files.generateUploadUrl);
   const { startUpload } = useUploadFiles(generateUploadUrlMutation);
   // const getPodcastAudio = useAction(api.openai.generateAudioAction);
-  const getPodcastAudio = useAction(api.elevenlabs.generateAudioAction);
-  // const getPodcastAudio = useAction(api.unreal.generateAudioAction);
+  // const getPodcastAudio = useAction(api.elevenlabs.generateAudioAction);
+  const getPodcastAudio = useAction(api.unreal.generateAudioAction);
   const getAudioUrl = useMutation(api.podcasts.getUrl);
   const generatePodcast = async () => {
     setIsGenerating(true);
@@ -43,7 +43,6 @@ const useGeneratePodcast = ({
         input: voicePrompt,
         voice: voiceType,
       });
-      const blob = new Blob([response], { type: "audio/mpeg" });
       const filename = `podcast-${uuidv4()}.mp3`;
       const file = new File([response], filename, { type: "audio/mpeg" });
       const uploaded = await startUpload([file]);
@@ -89,7 +88,7 @@ const GeneratePodcast = (props: GeneratePodcastProps) => {
       </div>
       <div className="mt-5 w-full max-w-[200px]">
         <Button
-          type="submit"
+          type="button"
           className="text-16 bg-orange-1 py-4 font-bold text-white-1"
           onClick={generatePodcast}
         >
@@ -99,7 +98,7 @@ const GeneratePodcast = (props: GeneratePodcastProps) => {
               <Loader size={20} className="animate-spin ml-2" />
             </>
           ) : (
-            "Generate"
+            "Generate Podcast"
           )}
         </Button>
       </div>
