@@ -27,10 +27,12 @@ const GenerateThumbnail = ({
   const generateUploadUrlMutation = useMutation(api.files.generateUploadUrl);
   const { startUpload } = useUploadFiles(generateUploadUrlMutation);
   const getImageUrl = useMutation(api.podcasts.getUrl);
+  const handleGenerateThumbnail = useAction(api.freepik.generateFreepikAction);
   // const handleGenerateThumbnail = useAction(api.openai.generateThumbnailAction);
-  const handleGenerateThumbnail = useAction(
-    api.sdxl.generateTSDXLhumbnailAction
-  );
+  // const handleGenerateThumbnail = useAction(
+  //   api.sdxl.generateTSDXLhumbnailAction
+  // );
+
   const handleImage = async (blob: Blob, fileName: string) => {
     setIsImageLoading(true);
     setImage("");

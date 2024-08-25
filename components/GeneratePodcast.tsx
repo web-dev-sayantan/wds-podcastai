@@ -20,9 +20,9 @@ const useGeneratePodcast = ({
   const { toast } = useToast();
   const generateUploadUrlMutation = useMutation(api.files.generateUploadUrl);
   const { startUpload } = useUploadFiles(generateUploadUrlMutation);
-  // const getPodcastAudio = useAction(api.openai.generateAudioAction);
+  const getPodcastAudio = useAction(api.openai.generateAudioAction);
   // const getPodcastAudio = useAction(api.elevenlabs.generateAudioAction);
-  const getPodcastAudio = useAction(api.unreal.generateAudioAction);
+  // const getPodcastAudio = useAction(api.unreal.generateAudioAction);
   const getAudioUrl = useMutation(api.podcasts.getUrl);
   const generatePodcast = async () => {
     setIsGenerating(true);
