@@ -54,6 +54,54 @@ export const getTrendingPodcasts = query({
   },
 });
 
+export const getPodcastByAuthorId = query({
+  args: {
+    authorId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const podcasts = await ctx.db
+      .query("podcasts")
+      .filter((q) => q.eq(q.field("authorId"), args.authorId))
+      .collect();
+
+    const totalListeners = podcasts.reduce(
+      (sum, podcast) => sum + podcast.views,
+      0
+    );
+
+    return { podcasts, listeners: totalListeners };
+  },
+});
+
+export const getPodcastBySearch = query({
+  args: {
+    query: v.string(),
+  },
+  handler: async (ctx, { query }) => {
+    if (query === "") {
+      return await ctx.db.query("podcasts").order('desc').collect();
+    }
+    const authorSearch =
+      await ctx.db.query("podcasts").withSearchIndex("by_author", q => q.search("author", query)).take(10);
+    if (authorSearch.length > 0) {
+      return authorSearch;
+    }
+
+    const titleSearch = await ctx.db
+      .query("podcasts")
+      .withSearchIndex("by_title", q => q.search("title", query))
+      .take(10);
+    if (titleSearch.length > 0) {
+      return titleSearch;
+    }
+
+    return await ctx.db
+      .query("podcasts")
+      .withSearchIndex("by_description", q => q.search("description" || "title", query))
+      .take(10);
+  },
+});
+
 export const getPodcastbyId = query({
   args: {
     podcastId: v.id("podcasts"),

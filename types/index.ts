@@ -30,8 +30,8 @@ export interface PodcastProps {
   _creationTime: number;
   audioStorageId: Id<"_storage"> | null;
   user: Id<"users">;
-  podcastTitle: string;
-  podcastDescription: string;
+  title: string;
+  description: string;
   audioUrl: string | null;
   imageUrl: string | null;
   imageStorageId: Id<"_storage"> | null;

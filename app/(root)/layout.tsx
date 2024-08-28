@@ -21,7 +21,7 @@ export default function RootLayout({
       <main className="relative flex bg-black-3">
         <LeftSidebar />
         <section className="flex min-h-screen flex-1 flex-col px-4 sm:px-14">
-          <div className="mx-auto w-full max-w-5xl flex flex-col max-sm:px-4">
+          <div className="mx-auto w-full max-w-5xl flex flex-col max-sm:p-2">
             <div className="flex items-center justify-between h-16 md:hidden">
               <Image src="/icons/logo.svg" alt="logo" width={30} height={30} />
               <MobileNav />
