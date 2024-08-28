@@ -28,13 +28,13 @@ export interface TopPodcastersProps {
 export interface PodcastProps {
   _id: Id<"podcasts">;
   _creationTime: number;
-  audioStorageId: Id<"_storage"> | null;
+  audioStorageId?: Id<"_storage"> | null;
   user: Id<"users">;
   title: string;
   description: string;
-  audioUrl: string | null;
-  imageUrl: string | null;
-  imageStorageId: Id<"_storage"> | null;
+  audioUrl?: string | null;
+  imageUrl?: string | null;
+  imageStorageId?: Id<"_storage"> | null;
   author: string;
   authorId: string;
   authorImageUrl: string;

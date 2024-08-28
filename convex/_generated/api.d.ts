@@ -21,7 +21,6 @@ import type * as http from "../http.js";
 import type * as openai from "../openai.js";
 import type * as podcasts from "../podcasts.js";
 import type * as sdxl from "../sdxl.js";
-import type * as tasks from "../tasks.js";
 import type * as unreal from "../unreal.js";
 import type * as users from "../users.js";
 
@@ -41,7 +40,6 @@ declare const fullApi: ApiFromModules<{
   openai: typeof openai;
   podcasts: typeof podcasts;
   sdxl: typeof sdxl;
-  tasks: typeof tasks;
   unreal: typeof unreal;
   users: typeof users;
 }>;
