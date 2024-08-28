@@ -32,7 +32,11 @@ const PodcastDetailsPlayer = ({
 
   const handleDelete = async () => {
     try {
-      await deletePodcast({ podcastId, imageStorageId, audioStorageId });
+      if (imageStorageId && audioStorageId) {
+        await deletePodcast({ podcastId, imageStorageId, audioStorageId });
+      } else {
+        throw new Error("Image or audio not found");
+      }
       toast({
         title: "Podcast deleted",
       });
