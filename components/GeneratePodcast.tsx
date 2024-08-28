@@ -10,19 +10,30 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useUploadFiles } from "@xixixao/uploadstuff/react";
 
+function getConvexApibyProvider(provider: string = "Openai") {
+  return provider === "Openai"
+    ? api.openai
+    : provider === "Eleven Labs"
+      ? api.elevenlabs
+      : provider === "Unreal Speech"
+        ? api.unreal
+        : api.openai;
+}
+
 const useGeneratePodcast = ({
   voicePrompt,
   setAudioUrl,
   setAudioStorageId,
   voiceType,
+  voiceProvider,
 }: GeneratePodcastProps) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const { toast } = useToast();
   const generateUploadUrlMutation = useMutation(api.files.generateUploadUrl);
   const { startUpload } = useUploadFiles(generateUploadUrlMutation);
-  const getPodcastAudio = useAction(api.openai.generateAudioAction);
-  // const getPodcastAudio = useAction(api.elevenlabs.generateAudioAction);
-  // const getPodcastAudio = useAction(api.unreal.generateAudioAction);
+  const getPodcastAudio = useAction(
+    getConvexApibyProvider(voiceProvider).generateAudioAction
+  );
   const getAudioUrl = useMutation(api.podcasts.getUrl);
   const generatePodcast = async () => {
     setIsGenerating(true);

@@ -18,7 +18,14 @@ const RightSidebar = () => {
   const { user } = useUser();
   const { audio } = useAudio();
   const topPodcasters = useQuery(api.users.getTopUserByPodcastCount);
-  if (!topPodcasters) return <LoaderSpinner />;
+  if (!topPodcasters) {
+    return (
+      <div className="flex w-[310px] items-center justify-center h-full">
+        <LoaderSpinner />;
+      </div>
+    );
+  }
+
   return (
     <section
       className={cn("right_sidebar text-white-1 h-[calc(100vh-5px)]", {

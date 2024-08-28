@@ -52,6 +52,7 @@ export interface ProfilePodcastProps {
 
 export interface GeneratePodcastProps {
   voiceType: string;
+  voiceProvider: string;
   setAudioUrl: Dispatch<SetStateAction<string>>;
   audioUrl: string;
   setAudioStorageId: Dispatch<SetStateAction<Id<"_storage"> | null>>;
@@ -126,4 +127,9 @@ export type UseDotButtonType = {
   selectedIndex: number;
   scrollSnaps: number[];
   onDotButtonClick: (index: number) => void;
+};
+
+export type VoiceType = {
+  provider: string;
+  voices: string[];
 };

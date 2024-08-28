@@ -19,6 +19,7 @@ import {
   Select,
   SelectContent,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -34,6 +35,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
+import { SelectGroup } from "@radix-ui/react-select";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -58,7 +60,7 @@ const CreatePodcast = () => {
   );
   const [audioDuration, setAudioDuration] = useState(0);
   const [voicePrompt, setVoicePrompt] = useState("");
-  const [voiceType, setVoiceType] = useState("");
+  const [voiceType, setVoiceType] = useState({ voice: "", provider: "" });
   const { toast } = useToast();
   const router = useRouter();
   const createPodcast = useMutation(api.podcasts.createPodcast);
@@ -91,7 +93,7 @@ const CreatePodcast = () => {
       const podcast = await createPodcast({
         title: data.title,
         description: data.description,
-        voiceType,
+        voiceType: voiceType.voice,
         voicePrompt,
         audioUrl,
         audioStorageId: audioStorageId!,
@@ -152,7 +154,13 @@ const CreatePodcast = () => {
               <Label className="text-16 font-bold text-white-1">
                 Select AI Voice
               </Label>
-              <Select onValueChange={(value) => setVoiceType(value)}>
+              <Select
+                onValueChange={(value) => {
+                  const voice = value.split("--")[0];
+                  const provider = value.split("--")[1];
+                  setVoiceType({ voice, provider });
+                }}
+              >
                 <SelectTrigger
                   className={cn(
                     "text-16 w-full bg-black-1 text-gray-1 border-none focus-visible:ring-offset-orange-1"
@@ -165,18 +173,29 @@ const CreatePodcast = () => {
                 </SelectTrigger>
                 <SelectContent className="bg-black-1 text-16 text-white-1 font-bold focus:ring-offset-orange-1 border-none">
                   {voiceDetails.map((voice) => (
-                    <SelectItem
-                      key={voice.id}
-                      value={voice.name}
-                      className="capitalize focus:bg-orange-1"
-                    >
-                      {voice.name}
-                    </SelectItem>
+                    <SelectGroup key={voice.provider}>
+                      <SelectLabel className="text-white-3 font-light pl-4">
+                        {voice.provider}
+                      </SelectLabel>
+                      {voice.voices.map((voiceName) => (
+                        <SelectItem
+                          key={voiceName}
+                          value={`${voiceName}--${voice.provider}`}
+                          className="capitalize focus:bg-orange-1"
+                        >
+                          {voiceName}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
                   ))}
                 </SelectContent>
               </Select>
-              {voiceType && (
-                <audio src={`/${voiceType}.mp3`} autoPlay className="hidden" />
+              {voiceType.voice && (
+                <audio
+                  src={`/${voiceType.voice}.mp3`}
+                  autoPlay
+                  className="hidden"
+                />
               )}
             </div>
             <FormField
@@ -206,7 +225,8 @@ const CreatePodcast = () => {
               setAudioDuration={setAudioDuration}
               voicePrompt={voicePrompt}
               setVoicePrompt={setVoicePrompt}
-              voiceType={voiceType}
+              voiceType={voiceType.voice}
+              voiceProvider={voiceType.provider}
               audioUrl={audioUrl}
             />
             <GenerateThumbnail
