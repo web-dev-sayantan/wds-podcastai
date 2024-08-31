@@ -72,8 +72,6 @@ const PodcastRow = ({
       {audioUrl && (
         <audio
           src={audioUrl}
-          controls
-          autoPlay
           className="hidden"
           onLoadedMetadata={(e) => {
             setDuration(e.currentTarget.duration);
