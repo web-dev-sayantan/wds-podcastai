@@ -19,6 +19,7 @@ import type * as freepik from "../freepik.js";
 import type * as http from "../http.js";
 import type * as openai from "../openai.js";
 import type * as podcasts from "../podcasts.js";
+import type * as razorpay from "../razorpay.js";
 import type * as sdxl from "../sdxl.js";
 import type * as unreal from "../unreal.js";
 import type * as users from "../users.js";
@@ -38,6 +39,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   openai: typeof openai;
   podcasts: typeof podcasts;
+  razorpay: typeof razorpay;
   sdxl: typeof sdxl;
   unreal: typeof unreal;
   users: typeof users;

@@ -1,6 +1,7 @@
 import { ConvexError, v } from "convex/values";
 
-import { internalMutation, query } from "./_generated/server";
+import { action, internalMutation, query } from "./_generated/server";
+import { internal } from "@/convex/_generated/api";
 
 export const getUserById = query({
   args: { clerkId: v.string() },
@@ -114,5 +115,51 @@ export const deleteUser = internalMutation({
     }
 
     await ctx.db.delete(user._id);
+  },
+});
+
+export const assignSubscriptionToUser = internalMutation({
+  args: {
+    subscription_id: v.string(),
+    plan_id: v.string(),
+    clerkId: v.string(),
+  },
+  handler: async (ctx, { clerkId, subscription_id, plan_id }) => {
+    const user = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("clerkId"), clerkId))
+      .first();
+    if (!user) {
+      throw new Error("User not found");
+    }
+    if (plan_id === "free_plan" && user.planId && user.planId !== "free_plan") {
+      throw new Error("User already has a subscription");
+    }
+    await ctx.db.patch(user._id, {
+      subscriptionId: subscription_id,
+      planId: plan_id,
+    });
+    return {
+      subscriptionId: subscription_id,
+      planId: plan_id,
+      clerkId: clerkId,
+    };
+  },
+});
+
+export const createFreeSubscription = action({
+  args: {
+    user_clerk_id: v.string(),
+  },
+  handler: async (ctx, { user_clerk_id }) => {
+    try {
+      await ctx.runMutation(internal.users.assignSubscriptionToUser, {
+        plan_id: "free_plan",
+        clerkId: user_clerk_id,
+        subscription_id: "free_plan",
+      });
+    } catch (error) {
+      console.error(error);
+    }
   },
 });

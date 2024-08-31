@@ -25,27 +25,37 @@ export const sidebarLinks = [
 
 export const pricingPlans = [
   {
-    id: 1,
+    id: "free_plan",
     name: "free",
     description: "For individuals",
     price: 0,
-    benefits: [
-      "Unlimited usage of Unreal Speech",
-      "Unlimited usage of Eleven Labs voices",
-    ]
+    benefits: ["Unlimited listening", "10 rants per month (non OpenAI)"],
   },
   {
-    id: 2,
-    name: "pro",
-    description: "For anyone willing to support",
-    price: 2,
+    id: "plan_OrUYhPDCK9uoVI",
+    name: "Starter",
+    description: "For starters serious about rants.",
+    price: 99,
     benefits: [
       "Everything in free",
-      "30 podcasts per month for OpenAI voices",
-      "Verified Creator Badge"
-    ]
+      "60 rants per month",
+      "30 rants per month with OpenAI voices",
+      "Verified Creator Badge",
+    ],
   },
-]
+  {
+    id: "plan_OrUZPoFU37B6aU",
+    name: "Pro",
+    description: "For pro ranters.",
+    price: 149,
+    benefits: [
+      "Everything in free",
+      "60 rants per month",
+      "30 rants per month with OpenAI voices",
+      "Verified Creator Badge",
+    ],
+  },
+];
 
 export const voiceDetails: VoiceType[] = [
   {
@@ -54,13 +64,13 @@ export const voiceDetails: VoiceType[] = [
   },
   {
     provider: "Eleven Labs",
-    voices: ["Rachel", "Drew",],
+    voices: ["Rachel", "Drew"],
   },
   {
     provider: "Openai",
     voices: ["alloy", "echo", "fable", "onyx", "nova", "shimmer"],
   },
-]
+];
 
 export const podcastData = [
   {

@@ -69,7 +69,7 @@ const EmblaCarousel = ({ fansLikeDetails }: CarouselProps) => {
       <div className="flex justify-center gap-2">
         {scrollSnaps.map((index) => (
           <DotButton
-            key={index}
+            key={index + Math.random().toString()}
             onClick={() => onDotButtonClick(index)}
             selected={index === selectedIndex}
           />

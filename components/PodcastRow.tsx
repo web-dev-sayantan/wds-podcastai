@@ -54,7 +54,7 @@ const PodcastRow = ({
         />
       </figure>
       <h2
-        className="flex-1 text-16 truncate font-semibold text-white-1 max-w-[250px] cursor-pointer hover:underline"
+        className="flex-1 text-16 truncate font-semibold text-white-1 cursor-pointer hover:underline"
         title={title}
         onClick={handleViews}
       >
