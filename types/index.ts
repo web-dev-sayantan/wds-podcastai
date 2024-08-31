@@ -133,3 +133,10 @@ export type VoiceType = {
   provider: string;
   voices: string[];
 };
+
+export type Plan = {
+  name: string;
+  price: number;
+  description: string;
+  benefits: string[];
+};

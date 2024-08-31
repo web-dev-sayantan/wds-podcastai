@@ -63,7 +63,7 @@ export default function PodcastDetails({
       </div>
       <section className="mt-8 flex flex-col gap-5">
         <h1 className="text-20 font-bold text-white-1">Similar Podcasts</h1>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col md:flex-row gap-4">
           {similarPodcasts?.length > 0 ? (
             similarPodcasts?.map((podcast) => (
               <PodcastCard

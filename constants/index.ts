@@ -16,13 +16,38 @@ export const sidebarLinks = [
     route: "/create-podcast",
     label: "Create Podcast",
   },
+  {
+    imgURL: "/icons/pricing.svg",
+    route: "/pricing",
+    label: "Pricing",
+  },
 ];
 
-export const voiceDetails: VoiceType[] = [
+export const pricingPlans = [
   {
-    provider: "Openai",
-    voices: ["alloy", "echo", "fable", "onyx", "nova", "shimmer"],
+    id: 1,
+    name: "free",
+    description: "For individuals",
+    price: 0,
+    benefits: [
+      "Unlimited usage of Unreal Speech",
+      "Unlimited usage of Eleven Labs voices",
+    ]
   },
+  {
+    id: 2,
+    name: "pro",
+    description: "For anyone willing to support",
+    price: 2,
+    benefits: [
+      "Everything in free",
+      "30 podcasts per month for OpenAI voices",
+      "Verified Creator Badge"
+    ]
+  },
+]
+
+export const voiceDetails: VoiceType[] = [
   {
     provider: "Unreal Speech",
     voices: ["Scarlett", "Dan"],
@@ -30,6 +55,10 @@ export const voiceDetails: VoiceType[] = [
   {
     provider: "Eleven Labs",
     voices: ["Rachel", "Drew",],
+  },
+  {
+    provider: "Openai",
+    voices: ["alloy", "echo", "fable", "onyx", "nova", "shimmer"],
   },
 ]
 

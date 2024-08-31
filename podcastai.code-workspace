@@ -4,5 +4,8 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"pieces.cloudCapabilities": "Blended",
+		"pieces.telemetry": true
+	}
 }

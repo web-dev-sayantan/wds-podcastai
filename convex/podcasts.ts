@@ -54,6 +54,14 @@ export const getTrendingPodcasts = query({
   },
 });
 
+export const getLatestPodcasts = query({
+  handler: async (ctx) => {
+    return await ctx.db
+      .query("podcasts")
+      .order("desc").take(10);
+  },
+})
+
 export const getPodcastByAuthorId = query({
   args: {
     authorId: v.string(),
